@@ -3,8 +3,11 @@ github_token: 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
 # Read more: https://github.com/blog/1509-personal-api-tokens
 # You can generate it here: https://github.com/settings/tokens
 
+# Guest OS
+box_image: ubuntu/focal64
+
 # Guest OS timezone
-timezone: Europe/London
+timezone: Asia/Jakarta
 
 # Are we need check box updates for every 'vagrant up'?
 box_check_update: false
@@ -20,3 +23,6 @@ cpus: 1
 
 # Virtual machine RAM
 memory: 1024
+
+# Database Name
+databasename: tokoku
