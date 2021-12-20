@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "pembayaran".
@@ -23,6 +24,16 @@ class Pembayaran extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'pembayaran';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+      return [
+          TimestampBehavior::className(),
+      ];
     }
 
     /**

@@ -131,7 +131,7 @@ class SiteController extends Controller
 
     /**
      * Displays produk.
-     *
+     * mba perlu di balas nggak ya terkait masalah VAnya yang di grop itu, tadi mba dona
      * @return string
      */
      public function actionDetailProduk($id) {

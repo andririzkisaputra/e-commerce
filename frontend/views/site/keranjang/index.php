@@ -103,11 +103,11 @@ $this->registerJs("
 ");
 ?>
 <div class="container">
-  <div class="container-keranjang" style="column-count: 2">
+  <!-- <div class="container-keranjang" style="column-count: 2">
     <div class="row-keranjang">
       <label><input type="checkbox" value=""> Pilih Semua</label>
     </div>
-  </div>
+  </div> -->
   <div id="list-keranjang">
 
   </div>

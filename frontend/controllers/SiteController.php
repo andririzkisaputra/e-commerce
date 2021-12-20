@@ -323,4 +323,16 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    /**
+     * Displays produk.
+     *
+     * @return string
+     */
+     public function actionPembayaran() {
+       $modelApi = new Api();
+       return $this->renderAjax('transaksi/pembayaran', [
+         'id' => $_GET['nomor']
+       ]);
+     }
 }

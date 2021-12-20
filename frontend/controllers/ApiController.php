@@ -90,6 +90,21 @@ class ApiController extends Controller
     }
 
     /**
+     * Select Keranjang action.
+     *
+     * @return string|Response
+     */
+    public function actionSelectPembayaran()
+    {
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $modelApi = new Api();
+      $model    = new Keranjang();
+      $data  = $modelApi->update_sistem_pembayaran($_POST['keranjang_id'], $_POST['pembayaran']);
+      $result['data'] = $data;
+      return $result;
+    }
+
+    /**
      * Keranjang action.
      *
      * @return string|Response
@@ -140,6 +155,7 @@ class ApiController extends Controller
     public function actionGetTransaksi()
     {
       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $harga = 0;
       $modelApi = new Api();
       $query = $modelApi->get_join_tabel(
         [
@@ -148,13 +164,31 @@ class ApiController extends Controller
           'keranjang_id'         => $_POST['nomor']
         ],
         false, false, false, 'keranjang.created_at', 'keranjang', 'produk', 'keranjang.produk_id = produk.produk_id',
-        'keranjang.*, produk.nama_produk, produk.gambar'
+        'keranjang.*, produk.nama_produk, produk.gambar, pembayaran.pembayaran, pembayaran.admin', 'pembayaran', 'pembayaran.pembayaran_id = keranjang.pembayaran_id'
       );
 
       foreach ($query as $key => $value) {
 				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
-				// $query[$key]['gambar_f']  = Url::base().'/backend/web/uploads/'.$value['gambar'];
+        $harga                    = $value['harga'];
+        $harga                    = $value['qty']*$harga;
+        $admin                    = $value['admin'];
 			}
+      $ongkir = 10000;
+      $total  = $harga+$admin+$ongkir;
+      $result['rincian'] = [
+        'harga'         => $harga,
+        'biaya_admin'   => $admin,
+        'kode_unik'     => 0,
+        'onkir'         => $ongkir,
+        'total'         => $total,
+      ];
+      $result['rincian_f'] = [
+        'harga_f'       => "Rp ".number_format($harga,0,',','.'),
+        'biaya_admin_f' => ($admin) ? "Rp ".number_format($admin,0,',','.') : 'Rp -',
+        'kode_unik_f'   => "Rp -",
+        'onkir_f'       => "Rp ".number_format($ongkir,0,',','.'),
+        'total_f'       => "Rp ".number_format($total,0,',','.')
+      ];
       $result['data'] = $query;
       return $result;
     }
@@ -179,13 +213,12 @@ class ApiController extends Controller
      *
      * @return string|Response
      */
-    public function actionPrePesan()
+    public function actionPembayaran()
     {
-      // \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-      // $modelApi = new Api();
-      // $query = $modelApi->delete_keranjang($_POST['keranjang_id']);
-
-      $result['data'] = true;
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $modelApi = new Api();
+      $data     = $modelApi->get_tabel_all('pembayaran', ['=', 'is_active', '1']);
+      $result['data'] = $data;
       return $result;
     }
 

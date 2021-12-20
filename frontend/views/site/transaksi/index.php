@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\bootstrap4\Modal;
 
 $this->title = 'Transaksi';
 
@@ -39,6 +40,73 @@ $this->registerJs("
           array = array.join('');
           html  = array.toString();
           $('#list-transaksi').html(html);
+          html  = '';
+          array = [];
+          html = '<div class=".'"row-keranjang"'.">'
+                  +'<p>'+((res.data[0].pembayaran) ? res.data[0].pembayaran : ".'"Metode Pembayaran"'.")+'</p>'
+                 +'</div>'
+                 +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                  +'<button class=".'"btn btn-sm btn-info showModalButton"'." value=".Url::to(['pembayaran?nomor='.$nomor]).">Pilih</button>'
+                 +'</div>'
+          $('#metode-pembayaran').html(html);
+
+          html  = '';
+          array = [];
+          for (i=0; i < 5 ; i++) {
+            if (i == 0) {
+                array.push('<div style=".'"column-count: 2"'.">'
+                  +'<div class=".'"row-keranjang"'.">'
+                    +'<p>Harga</p>'
+                  +'</div>'
+                  +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                    +'<a>'+res.rincian_f.harga_f+'</a>'
+                  +'</div>'
+                +'</div>');
+            }
+            if (i == 1) {
+                array.push('<div style=".'"column-count: 2"'.">'
+                  +'<div class=".'"row-keranjang"'.">'
+                    +'<p>Biaya Admin</p>'
+                  +'</div>'
+                  +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                    +'<a>'+res.rincian_f.biaya_admin_f+'</a>'
+                  +'</div>'
+                +'</div>');
+            }
+            if (i == 2) {
+                array.push('<div style=".'"column-count: 2"'.">'
+                  +'<div class=".'"row-keranjang"'.">'
+                    +'<p>Kode Unik</p>'
+                  +'</div>'
+                  +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                    +'<a>'+res.rincian_f.kode_unik_f+'</a>'
+                  +'</div>'
+                +'</div>');
+            }
+            if (i == 3) {
+                array.push('<div style=".'"column-count: 2"'.">'
+                  +'<div class=".'"row-keranjang"'.">'
+                    +'<p>Ongkir</p>'
+                  +'</div>'
+                  +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                    +'<a>'+res.rincian_f.onkir_f+'</a>'
+                  +'</div>'
+                +'</div>');
+            }
+            if (i == 4) {
+              array.push('<div style=".'"column-count: 2"'.">'
+                +'<div class=".'"row-keranjang"'.">'
+                  +'<p>Total Harga</p>'
+                +'</div>'
+                +'<div class=".'"list-keranjang"'." style=".'"text-align: end; padding: 0px 15px 0px 0px"'.">'
+                  +'<a>'+res.rincian_f.total_f+'</a>'
+                +'</div>'
+              +'</div>');
+            }
+          }
+          array = array.join('');
+          html  = array.toString();
+          $('#list-total').html(html);
           return true;
         },
         error: function(e){
@@ -54,70 +122,34 @@ $this->registerJs("
   <div id="list-transaksi"></div>
   <!-- end produk -->
   <!-- pembayaran -->
-  <div class="container-keranjang" style="column-count: 2">
-    <div class="row-keranjang">
-      <p>Metode Pembayaran</p>
-    </div>
-    <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-      <a href="javascript:void(0)">Pilih</a>
-    </div>
-  </div>
+  <div class="container-keranjang" style="column-count: 2" id="metode-pembayaran"></div>
   <!-- end pembayaran -->
   <!-- Voucher -->
-  <div class="container-keranjang" style="column-count: 2">
+  <!-- <div class="container-keranjang" style="column-count: 2">
     <div class="row-keranjang">
       <p>Voucher</p>
     </div>
     <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
       <a href="javascript:void(0)">Pilih</a>
     </div>
-  </div>
+  </div> -->
   <!-- end Voucher -->
   <!-- total -->
-  <div class="container-keranjang">
-    <div class="" style="column-count: 2">
-      <div class="row-keranjang">
-        <p>Harga</p>
-      </div>
-      <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-        <a>Rp 90.000</a>
-      </div>
-    </div>
-    <div class="" style="column-count: 2">
-      <div class="row-keranjang">
-        <p>Biaya Admin</p>
-      </div>
-      <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-        <a>-</a>
-      </div>
-    </div>
-    <div class="" style="column-count: 2">
-      <div class="row-keranjang">
-        <p>Kode Unik</p>
-      </div>
-      <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-        <a>Rp 898</a>
-      </div>
-    </div>
-    <div class="" style="column-count: 2">
-      <div class="row-keranjang">
-        <p>Ongkir</p>
-      </div>
-      <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-        <a>Rp 10.000</a>
-      </div>
-    </div>
-    <div class="" style="column-count: 2">
-      <div class="row-keranjang">
-        <p>Total Harga</p>
-      </div>
-      <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
-        <a>Rp 100.898</a>
-      </div>
-    </div>
-  </div>
+  <div class="container-keranjang" id="list-total"></div>
+  <!-- end total -->
   <div class="" style="text-align: end; margin: 5px 0px 0px 0px">
     <button class="btn btn-success" type="button" name="button">Pesan</button>
   </div>
-  <!-- end total -->
 </div>
+
+
+<?php
+  Modal::begin([
+    'id'=>'modal',
+    'size'=>'modal-md',
+  ]);
+
+  echo "<div id='modalContent'></div>";
+
+  Modal::end();
+?>

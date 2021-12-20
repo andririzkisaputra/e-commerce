@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
         'css/responsive.css',
     ];
     public $js = [
-      // 'js/jquery-3.4.1.min.js',
+      'js/modal.js',
       'js/popper.min.js',
       'js/bootstrap.js',
       'js/custom.js',

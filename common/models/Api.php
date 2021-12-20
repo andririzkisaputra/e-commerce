@@ -42,11 +42,14 @@ class Api extends Model
     return $modelUser->save();
   }
 
-  public function get_join_tabel($where = false, $where_like = false, $limit = false, $start = false, $order_by, $tabel, $tabelJoin, $selectJoin, $select = '*')
+  public function get_join_tabel($where = false, $where_like = false, $limit = false, $start = false, $order_by, $tabel, $tabelJoin, $selectJoin, $select = '*', $tabelJoinDua = false ,$selectJoinDua = false)
   {
     $semua = new Query;
     $semua->select($select);
     $semua->from($tabel)->leftJoin($tabelJoin, $selectJoin);
+    if ($tabelJoinDua && $selectJoinDua) {
+      $semua->leftJoin($tabelJoinDua, $selectJoinDua);
+    }
     if ($where) {
       $semua->where($where);
     }
@@ -58,6 +61,27 @@ class Api extends Model
     }
     $semua->orderBy([$order_by => SORT_DESC]);
     return $semua->all();
+  }
+
+  public function get_join_tabel_by($where = false, $where_like = false, $limit = false, $start = false, $order_by, $tabel, $tabelJoin, $selectJoin, $select = '*', $tabelJoinDua = false ,$selectJoinDua = false)
+  {
+    $semua = new Query;
+    $semua->select($select);
+    $semua->from($tabel)->leftJoin($tabelJoin, $selectJoin);
+    if ($tabelJoinDua && $selectJoinDua) {
+      $semua->leftJoin($tabelJoinDua, $selectJoinDua);
+    }
+    if ($where) {
+      $semua->where($where);
+    }
+    if ($where_like) {
+      $semua->andWhere($where_like);
+    }
+    if ($limit) {
+      $semua->offset($start)->limit($limit);
+    }
+    $semua->orderBy([$order_by => SORT_DESC]);
+    return $semua->one();
   }
 
   public function get_tabel($where = false, $where_like = false, $limit = false, $start = false, $order_by, $tabel)
@@ -147,6 +171,16 @@ class Api extends Model
     } else {
       return $update->save();
     }
+  }
+
+  public function update_sistem_pembayaran($keranjang, $pembayaran)
+  {
+    $update = Keranjang::findOne([
+      'keranjang_id' => $keranjang,
+      'is_selected'  => '0',
+    ]);
+    $update->pembayaran_id = $pembayaran;
+    return $update->save();
   }
 
   public function ubah_produk($model, $produk, $kategori)
