@@ -76,8 +76,8 @@ class ApiController extends Controller
 			foreach ($query as $key => $value) {
 				$query[$key]['no']	 = $key+1;
 				$query[$key]['aksi'] = '<div class="btn-group btn-group-toggle">'
-                                 .Html::button('Detail', ['value' => Url::to(['../site/detail-produk?id='.$value['produk_id']]), 'class' => 'btn btn-sm btn-info showModalButton'])
-                                 .Html::button('Ubah', ['value' => Url::to(['../site/ubah-data-produk?id='.$value['produk_id']]), 'class' => 'btn btn-sm btn-success showModalButton'])
+                                 .Html::button('Detail', ['value' => Url::to(['/site/detail-produk?id='.$value['produk_id']]), 'class' => 'btn btn-sm btn-info showModalButton'])
+                                 .Html::button('Ubah', ['value' => Url::to(['/site/ubah-data-produk?id='.$value['produk_id']]), 'class' => 'btn btn-sm btn-success showModalButton'])
                                  .Html::button('Hapus', ['value' => Url::to(['javascript:void(0)']), 'class' => 'btn btn-sm btn-danger hapus', 'data' => $value['produk_id']])
       												 .'</div>';
 			}

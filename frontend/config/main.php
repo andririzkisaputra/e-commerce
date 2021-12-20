@@ -7,24 +7,13 @@ $params = array_merge(
 );
 
 return [
-    'id'   => 'app-frontend',
-    'name' => 'TokoKu',
-    'language' => 'zxx',
+    'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
-            'baseUrl'   => '',
-        ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                '' => 'site/index',
-                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
-            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -47,19 +36,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
-        ],
-        */
-        'urlManagerBackend' => [
-          'class' => 'yii\web\urlManager',
-          'baseUrl' => 'yourbackendend/absolutepath/uploads/',
-          'enablePrettyUrl' => true,
-          'showScriptName' => false,
         ],
     ],
     'params' => $params,

@@ -1,6 +1,6 @@
 <?php
 
-use Yii;
+// use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
@@ -11,7 +11,7 @@ use common\models\User;
 <div class="site-index">
   <div class="">
 
-    <?php echo Html::img('@viewImgBackend/'.$produk['gambar'], ['class' => 'detail-img']);?>
+    <?= Html::img('@viewImgBackend/'.$produk['gambar'], ['class' => 'detail-img']);?>
     <table class="detail-tabel">
       <tbody>
         <tr>
