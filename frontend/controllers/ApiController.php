@@ -119,7 +119,8 @@ class ApiController extends Controller
       $query = $modelApi->get_join_tabel(
         [
           'keranjang.created_by' => Yii::$app->user->identity->id,
-          'is_selected'          => '0'
+          'is_selected'          => '0',
+          'keranjang_id'         => $_POST['nomor']
         ],
         false, false, false, 'keranjang.created_at', 'keranjang', 'produk', 'keranjang.produk_id = produk.produk_id',
         'keranjang.*, produk.nama_produk, produk.gambar'
@@ -127,7 +128,7 @@ class ApiController extends Controller
 
       foreach ($query as $key => $value) {
 				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
-				$query[$key]['gambar_f']  = Url::base(true).'/backend/web/uploads/'.$value['gambar'];
+				// $query[$key]['gambar_f']  = Url::base().'/backend/web/uploads/'.$value['gambar'];
 			}
       $result['data'] = $query;
       return $result;

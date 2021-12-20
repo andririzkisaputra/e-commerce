@@ -172,7 +172,7 @@ class SiteController extends Controller
     public function actionTransaksi()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->render('keranjang/transaksi', [
+            return $this->render('transaksi/index', [
               'nomor' => $_GET['nomor']
             ]);
         } else {
