@@ -13,7 +13,7 @@ $this->registerJs("
   {
     $.ajax({
         type     : 'POST',
-        url      : '".Url::base(true)."/api/get-keranjang',
+        url      : '".Url::base(true)."/api/get-transaksi',
         dataType : 'JSON',
         data     : {
           'nomor' : ".$nomor."
@@ -63,16 +63,16 @@ $this->registerJs("
     </div>
   </div>
   <!-- end pembayaran -->
-  <!-- vaucher -->
+  <!-- Voucher -->
   <div class="container-keranjang" style="column-count: 2">
     <div class="row-keranjang">
-      <p>Vaucher</p>
+      <p>Voucher</p>
     </div>
     <div class="list-keranjang" style="text-align: end; padding: 0px 15px 0px 0px">
       <a href="javascript:void(0)">Pilih</a>
     </div>
   </div>
-  <!-- end vaucher -->
+  <!-- end Voucher -->
   <!-- total -->
   <div class="container-keranjang">
     <div class="" style="column-count: 2">
