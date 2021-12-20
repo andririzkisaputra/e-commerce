@@ -66,7 +66,6 @@ class ApiController extends Controller
 			foreach ($query as $key => $value) {
 				$query[$key]['no']	      = $key+1;
 				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
-				$query[$key]['gambar_f']  = Url::base(true).'/backend/web/uploads/'.$value['gambar'];
         $query[$key]['keranjang'] = $modelApi->get_tabel_by('keranjang', ['produk_id' => $value['produk_id'], 'is_selected' => '0', 'created_by' => Yii::$app->user->identity->id]);
 			}
 

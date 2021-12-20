@@ -124,11 +124,11 @@ class Api extends Model
 
   public function simpan_keranjang($model, $keranjang)
   {
-    $created_by  = Yii::$app->user->identity->id;
-    $model->produk_id  = $keranjang['produk_id'];
-    $model->harga      = $keranjang['harga'];
-    $model->qty        = 1;
-    $model->created_by = $created_by;
+    $created_by         = Yii::$app->user->identity->id;
+    $model->produk_id   = (string)$keranjang['produk_id'];
+    $model->harga       = $keranjang['harga'];
+    $model->qty         = 1;
+    $model->created_by  = $created_by;
     return $model->save();
   }
 

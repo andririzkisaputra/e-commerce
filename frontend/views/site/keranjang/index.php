@@ -19,9 +19,10 @@ $this->registerJs("
           let html  = '';
           let array = [];
           res.data.map((item, index) => {
+          let gambar_f = '/tokoku/uploads/backend/produk/'+item.gambar;
           array.push('<div class=".'"container-keranjang row"'.">'
               +'<div class=".'"row row-keranjang"'.">'
-                +'<img width=".'"100"'." src=".'"'.Url::base(true).'/images/p1.png"'.">'
+                +'<img width=".'"100"'." src="."'+gambar_f+'".">'
                 +'<div class=".'"list-keranjang"'.">'
                   +'<p>'+item.nama_produk+'</p>'
                   +'<p>'+item.harga_f+'</p>'

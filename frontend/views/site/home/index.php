@@ -21,6 +21,7 @@ $this->registerJs("
           let html  = '';
           let array = [];
           res.data.map((item, index) => {
+          let gambar_f = '/tokoku/uploads/backend/produk/'+item.gambar;
           if (item.keranjang) {
             html = '<div>'
                      +'<a href=".'"javascript:void(0)"'." class=".'"col-sm-2 col-md-2 col-lg-2 option1 minKeranjang"'." data='+item.keranjang.keranjang_id+'>'
@@ -47,7 +48,7 @@ $this->registerJs("
                      +'</div>'
                   +'</div>'
                   +'<div class=".'"img-box"'.">'
-                     +'<img src='+item.gambar_f+' alt=".'""'.">'
+                     +'<img src="."'+gambar_f+'".">'
                   +'</div>'
                   +'<div class=".'"detail-box"'.">'
                      +'<h5>'
