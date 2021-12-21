@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 20, 2021 at 07:36 AM
+-- Generation Time: Dec 21, 2021 at 10:08 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.0
 
@@ -59,6 +59,8 @@ INSERT INTO `kategori` (`kategori_id`, `nama_kategori`, `is_delete`, `created_by
 CREATE TABLE `keranjang` (
   `keranjang_id` int(11) NOT NULL,
   `produk_id` varchar(11) DEFAULT NULL,
+  `pembayaran_id` varchar(11) DEFAULT NULL,
+  `transaksi_id` varchar(11) DEFAULT NULL,
   `qty` int(11) DEFAULT NULL,
   `harga` varchar(45) DEFAULT NULL,
   `is_selected` enum('0','1') NOT NULL DEFAULT '0',
@@ -71,9 +73,10 @@ CREATE TABLE `keranjang` (
 -- Dumping data for table `keranjang`
 --
 
-INSERT INTO `keranjang` (`keranjang_id`, `produk_id`, `qty`, `harga`, `is_selected`, `created_by`, `created_at`, `updated_at`) VALUES
-(23, '11', 3, '30000', '0', 1, 1639971470, 1639971475),
-(24, '9', 4, '40000', '0', 1, 1639971799, 1639971801);
+INSERT INTO `keranjang` (`keranjang_id`, `produk_id`, `pembayaran_id`, `transaksi_id`, `qty`, `harga`, `is_selected`, `created_by`, `created_at`, `updated_at`) VALUES
+(23, '11', '2', NULL, 6, '60000', '0', 1, 1639971470, 1639992830),
+(24, '9', '2', NULL, 4, '40000', '0', 1, 1639971799, 1639993488),
+(25, '10', '2', NULL, 2, '20000', '0', 1, 1639992708, 1640073490);
 
 -- --------------------------------------------------------
 
@@ -106,6 +109,7 @@ CREATE TABLE `pembayaran` (
   `pembayaran` varchar(45) DEFAULT NULL,
   `is_active` enum('0','1') NOT NULL DEFAULT '1',
   `gambar` varchar(255) DEFAULT NULL,
+  `admin` varchar(255) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `upadate_at` int(11) DEFAULT NULL
@@ -115,9 +119,9 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`pembayaran_id`, `pembayaran`, `is_active`, `gambar`, `created_by`, `created_at`, `upadate_at`) VALUES
-(1, 'FasaPay', '1', NULL, 1, 1638761351, 1638761351),
-(2, 'Tunai', '1', NULL, 1, 1638761351, 1638761351);
+INSERT INTO `pembayaran` (`pembayaran_id`, `pembayaran`, `is_active`, `gambar`, `admin`, `created_by`, `created_at`, `upadate_at`) VALUES
+(1, 'FasaPay', '1', 'fasapay.jpeg', '2000', 1, 1638761351, 1638761351),
+(2, 'Tunai', '1', 'tunai.png', NULL, 1, 1638761351, 1638761351);
 
 -- --------------------------------------------------------
 
@@ -159,6 +163,37 @@ INSERT INTO `produk` (`produk_id`, `kategori_id`, `nama_produk`, `qty`, `harga`,
 (18, '5', 'Nasi', '100', '10000', 'nasi-2021-12-09-07:04:55.jpg', '0', 1, 1639032904, 1639032947),
 (19, '4', 'Nasi', '100', '10000', 'nasi-2021-12-09-07:37:55.jpg', '0', 1, 1639032937, 1639032949),
 (20, '4', 'Nasi', '100', '10000', 'nasi-2021-12-09-08:23:25.jpg', '0', 1, 1639034723, 1639034728);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tagihan`
+--
+
+CREATE TABLE `tagihan` (
+  `tagihan_id` int(11) NOT NULL,
+  `transaksi_id` int(11) DEFAULT NULL,
+  `kode_tagihan` varchar(255) DEFAULT NULL,
+  `status_tagihan` enum('1','2','3','4','5') DEFAULT NULL COMMENT '1. menunggu pembayaran \r\n2. menunggu konfirmasi pembayaran \r\n3. dibayar \r\n4. batal \r\n5. gagal	',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `upadate_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `transaksi_id` int(11) NOT NULL,
+  `kode_transaksi` varchar(255) DEFAULT NULL,
+  `status_transaksi` enum('1','2','3','4','5','6','7') DEFAULT NULL COMMENT '1. menunggu pembayaran\r\n2. menunggu konfirmasi pembayaran\r\n3. dibayar\r\n4. batal\r\n5. gagal\r\n6. dikirim\r\n7. selesai',
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `upadate_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -223,6 +258,18 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`produk_id`);
 
 --
+-- Indexes for table `tagihan`
+--
+ALTER TABLE `tagihan`
+  ADD PRIMARY KEY (`tagihan_id`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`transaksi_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -245,7 +292,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -258,6 +305,18 @@ ALTER TABLE `pembayaran`
 --
 ALTER TABLE `produk`
   MODIFY `produk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `tagihan`
+--
+ALTER TABLE `tagihan`
+  MODIFY `tagihan_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

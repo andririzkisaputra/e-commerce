@@ -58,3 +58,17 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+
+```
+sudo systemctl stop nginx
+sudo /opt/lampp/manager-linux-x64.run
+sudo chmod g+rwx -R controllers
+sudo chmod -R 777 nginx.pid
+php yii serve --docroot="frontend/web/" --port=8888
+
+- api_key = 23a19aefa82b886ad63f085ca52572ff
+- api_secretword = Andririzki12345
+- date = 2022122015
+23a19aefa82b886ad63f085ca52572ff:Andririzki12345:2022122015
+fba13252ebe83b280d2a7963a2a1a2049b9ef1713d00223d308cb8f98afc776d
+```

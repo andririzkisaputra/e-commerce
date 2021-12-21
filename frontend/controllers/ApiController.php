@@ -209,7 +209,7 @@ class ApiController extends Controller
     }
 
     /**
-     * Prepesan action.
+     * Pembayaran action.
      *
      * @return string|Response
      */
@@ -218,6 +218,20 @@ class ApiController extends Controller
       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
       $modelApi = new Api();
       $data     = $modelApi->get_tabel_all('pembayaran', ['=', 'is_active', '1']);
+      $result['data'] = $data;
+      return $result;
+    }
+
+    /**
+     * TestApi action.
+     *
+     * @return string|Response
+     */
+    public function actionTestApi()
+    {
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $modelApi = new Api();
+      $data     = $modelApi->api_xml();
       $result['data'] = $data;
       return $result;
     }
