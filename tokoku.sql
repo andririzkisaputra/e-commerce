@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2021 at 10:08 AM
+-- Generation Time: Dec 21, 2021 at 10:56 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.0
 
@@ -74,9 +74,11 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`keranjang_id`, `produk_id`, `pembayaran_id`, `transaksi_id`, `qty`, `harga`, `is_selected`, `created_by`, `created_at`, `updated_at`) VALUES
-(23, '11', '2', NULL, 6, '60000', '0', 1, 1639971470, 1639992830),
-(24, '9', '2', NULL, 4, '40000', '0', 1, 1639971799, 1639993488),
-(25, '10', '2', NULL, 2, '20000', '0', 1, 1639992708, 1640073490);
+(27, '10', NULL, NULL, 2, '10000', '0', 1, 1640079526, 1640079659),
+(28, '6', NULL, NULL, 2, '10000', '0', 1, 1640079655, 1640079723),
+(29, '11', NULL, NULL, 4, '10000', '0', 1, 1640079669, 1640079672),
+(33, '8', NULL, NULL, 1, '10000', '0', 1, 1640079730, 1640079730),
+(34, '16', NULL, NULL, 2, '10000', '0', 1, 1640079732, 1640079733);
 
 -- --------------------------------------------------------
 
@@ -292,7 +294,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
