@@ -163,9 +163,9 @@ class Api extends Model
       'is_selected'  => '0',
     ]);
     $qty           = (($is_keranjang) ? (int)($keranjang['qty']+1) : (int)($keranjang['qty']-1));
-    $harga         = (int)($qty*$produk['harga']);
+    // $harga         = (int)($qty*$produk['harga']);
     $update->qty   = $qty;
-    $update->harga = (string)$harga;
+    // $update->harga = (string)$harga;
     if ($qty == 0) {
       return $update->delete();
     } else {
