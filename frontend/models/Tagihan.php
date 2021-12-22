@@ -11,9 +11,10 @@ use Yii;
  * @property int|null $transaksi_id
  * @property string|null $kode_tagihan
  * @property string|null $status_tagihan 1. menunggu pembayaran  2. menunggu konfirmasi pembayaran  3. dibayar  4. batal  5. gagal	
+ * @property string|null $total_bayar
  * @property int|null $created_by
  * @property int|null $created_at
- * @property int|null $upadate_at
+ * @property int|null $updated_at
  */
 class Tagihan extends \yii\db\ActiveRecord
 {
@@ -31,9 +32,9 @@ class Tagihan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['transaksi_id', 'created_by', 'created_at', 'upadate_at'], 'integer'],
+            [['transaksi_id', 'created_by', 'created_at', 'updated_at'], 'integer'],
             [['status_tagihan'], 'string'],
-            [['kode_tagihan'], 'string', 'max' => 255],
+            [['kode_tagihan', 'total_bayar'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,9 +48,10 @@ class Tagihan extends \yii\db\ActiveRecord
             'transaksi_id' => 'Transaksi ID',
             'kode_tagihan' => 'Kode Tagihan',
             'status_tagihan' => 'Status Tagihan',
+            'total_bayar' => 'Total Bayar',
             'created_by' => 'Created By',
             'created_at' => 'Created At',
-            'upadate_at' => 'Upadate At',
+            'updated_at' => 'Updated At',
         ];
     }
 

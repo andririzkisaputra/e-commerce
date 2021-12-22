@@ -10,9 +10,11 @@ use Yii;
  * @property int $transaksi_id
  * @property string|null $kode_transaksi
  * @property string|null $status_transaksi 1. menunggu pembayaran 2. menunggu konfirmasi pembayaran 3. dibayar 4. batal 5. gagal 6. dikirim 7. selesai
+ * @property string|null $harga_produk
+ * @property string|null $ongkir
  * @property int|null $created_by
  * @property int|null $created_at
- * @property int|null $upadate_at
+ * @property int|null $updated_at
  */
 class Transaksi extends \yii\db\ActiveRecord
 {
@@ -31,8 +33,8 @@ class Transaksi extends \yii\db\ActiveRecord
     {
         return [
             [['status_transaksi'], 'string'],
-            [['created_by', 'created_at', 'upadate_at'], 'integer'],
-            [['kode_transaksi'], 'string', 'max' => 255],
+            [['created_by', 'created_at', 'updated_at'], 'integer'],
+            [['kode_transaksi', 'harga_produk', 'ongkir'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,9 +47,11 @@ class Transaksi extends \yii\db\ActiveRecord
             'transaksi_id' => 'Transaksi ID',
             'kode_transaksi' => 'Kode Transaksi',
             'status_transaksi' => 'Status Transaksi',
+            'harga_produk' => 'Harga Produk',
+            'ongkir' => 'Ongkir',
             'created_by' => 'Created By',
             'created_at' => 'Created At',
-            'upadate_at' => 'Upadate At',
+            'updated_at' => 'Updated At',
         ];
     }
 

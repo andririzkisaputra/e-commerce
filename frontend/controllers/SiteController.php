@@ -16,6 +16,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use app\models\Transaksi;
+use app\models\Tagihan;
 
 /**
  * Site controller
@@ -358,13 +360,14 @@ class SiteController extends Controller
       */
      public function actionSuccess()
      {
-       $modelApi = new Api();
+       $modelApi       = new Api();
+       $modelTransaksi = new Transaksi();
+       $modelTagihan   = new Tagihan();
        if ($_GET['track_id']) {
          $keranjang = $modelApi->get_tabel_by('keranjang', ['keranjang_id' => $_GET['track_id']]);
+         $transaksi = $modelApi->simpan_transaksi($modelTransaksi, $keranjang, $_GET);
+         $tagihan   = $modelApi->simpan_tagihan($modelTagihan, $keranjang, $_GET, $transaksi);
        }
-       print_r($keranjang);
-       //
-       // $result['data'] = $query;
-       // return $result;
+       $this->redirect('@web/site/pesanan');
      }
 }

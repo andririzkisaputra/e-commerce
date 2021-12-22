@@ -245,23 +245,33 @@ class Api extends Model
     return $update->save();
   }
 
-  public function simpan_transaksi($model, $keranjang)
+  public function simpan_transaksi($model, $keranjang, $data)
   {
-    $created_by         = Yii::$app->user->identity->id;
-    $model->produk_id   = (string)$keranjang['produk_id'];
-    $model->harga       = $keranjang['harga'];
-    $model->qty         = 1;
-    $model->created_by  = $created_by;
-    return $model->save();
+    $created_by              = Yii::$app->user->identity->id;
+    $model->kode_transaksi   = (string)$data['order_id'];
+    $model->harga_produk     = $keranjang['harga'];
+    $model->status_transaksi = ($keranjang['pembayaran_id'] == '1') ? '2' : '1';
+    $model->ongkir           = '1000';
+    $model->created_by       = $created_by;
+    $model->save();
+    return $model->transaksi_id;
   }
 
-  public function simpan_tagihan($model, $keranjang)
+  public function simpan_tagihan($model, $keranjang, $data, $transaksi_id)
   {
-    $created_by         = Yii::$app->user->identity->id;
-    $model->produk_id   = (string)$keranjang['produk_id'];
-    $model->harga       = $keranjang['harga'];
-    $model->qty         = 1;
-    $model->created_by  = $created_by;
+    $created_by = Yii::$app->user->identity->id;
+    $update     = Keranjang::findOne([
+      'keranjang_id' => $keranjang['keranjang_id'],
+    ]);
+    $update->transaksi_id = $transaksi_id;
+    $update->is_selected  = '1';
+    $update->save();
+
+    $model->transaksi_id     = $transaksi_id;
+    $model->kode_tagihan     = (string)$data['fp_merchant_ref'];
+    $model->status_tagihan   = ($keranjang['pembayaran_id'] == '1') ? '2' : '1';
+    $model->total_bayar      = $keranjang['harga'];
+    $model->created_by       = $created_by;
     return $model->save();
   }
 
