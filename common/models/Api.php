@@ -249,9 +249,9 @@ class Api extends Model
   {
     $created_by              = Yii::$app->user->identity->id;
     $model->kode_transaksi   = (string)$data['order_id'];
-    $model->harga_produk     = $keranjang['harga'];
+    $model->harga_produk     = (string)((int)($keranjang['harga']*$keranjang['qty']));
     $model->status_transaksi = ($keranjang['pembayaran_id'] == '1') ? '2' : '1';
-    $model->ongkir           = '1000';
+    $model->ongkir           = '10000';
     $model->created_by       = $created_by;
     $model->save();
     return $model->transaksi_id;
@@ -270,7 +270,7 @@ class Api extends Model
     $model->transaksi_id     = $transaksi_id;
     $model->kode_tagihan     = (string)$data['fp_merchant_ref'];
     $model->status_tagihan   = ($keranjang['pembayaran_id'] == '1') ? '2' : '1';
-    $model->total_bayar      = $keranjang['harga'];
+    $model->total_bayar      = (string)((int)(($keranjang['harga']*$keranjang['qty'])+10000));
     $model->created_by       = $created_by;
     return $model->save();
   }
