@@ -358,11 +358,11 @@ class SiteController extends Controller
       */
      public function actionSuccess()
      {
-       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-       // $data = json_decode($_GET['transaksi']);
-       print_r(json_decode($_GET['transaksi']));
-       // $modelApi = new Api();
-       // $query = $modelApi->delete_keranjang($_POST['keranjang_id']);
+       $modelApi = new Api();
+       if ($_GET['track_id']) {
+         $keranjang = $modelApi->get_tabel_by('keranjang', ['keranjang_id' => $_GET['track_id']]);
+       }
+       print_r($keranjang);
        //
        // $result['data'] = $query;
        // return $result;

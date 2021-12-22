@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[Pembayaran]].
+ * This is the ActiveQuery class for [[Tagihan]].
  *
- * @see Pembayaran
+ * @see Tagihan
  */
-class PembayaranQuery extends \yii\db\ActiveQuery
+class TagihanQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class PembayaranQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Pembayaran[]|array
+     * @return Tagihan[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class PembayaranQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Pembayaran|array|null
+     * @return Tagihan|array|null
      */
     public function one($db = null)
     {

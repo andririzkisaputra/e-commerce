@@ -22,8 +22,6 @@ $this->registerJs("
         success: function(res){
           let total       = 0;
           let html        = '';
-          let url         = res.fasapay_data.fp_success_url;
-          console.log(res.url);
           let array       = [];
           res.data.map((item, index) => {
           let gambar_f = '/tokoku/uploads/backend/produk/'+item.gambar;
@@ -116,11 +114,11 @@ $this->registerJs("
             +'<input type=".'"hidden"'." name=".'"order_id"'." value='+res.fasapay_data.fp_order_id+' />'
             +'<input type=".'"hidden"'." name=".'"fp_merchant_ref"'." value='+res.fasapay_data.fp_merchant_ref+' />'
             +'<input type=".'"hidden"'." name=".'"fp_currency"'." value=".'"IDR"'.">'
-            +'<input type=".'"hidden"'." name=".'"fp_success_url"'." value='+url+' />'
+            +'<input type=".'"hidden"'." name=".'"fp_success_url"'." value='+res.fp_success_url+' />'
             +'<input type=".'"hidden"'." name=".'"fp_success_method"'." value=".'"POST"'." />'
-            +'<input type=".'"hidden"'." name=".'"fp_fail_url"'." value='+url+' />'
+            +'<input type=".'"hidden"'." name=".'"fp_fail_url"'." value='+res.fp_fail_url+' />'
             +'<input type=".'"hidden"'." name=".'"fp_fail_method"'." value=".'"GET"'." />'
-            +'<input type=".'"hidden"'." name=".'"fp_status_url"'." value='+url+' />'
+            +'<input type=".'"hidden"'." name=".'"fp_status_url"'." value='+res.fp_status_url+' />'
             +'<input type=".'"hidden"'." name=".'"fp_status_method"'." value=".'"POST"'." />'
             +'<input type=".'"hidden"'." name=".'"fp_amnt"'." value='+res.fasapay_data.fp_amnt+' />'
           );

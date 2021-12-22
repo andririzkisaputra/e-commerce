@@ -188,9 +188,9 @@ class ApiController extends Controller
         // 'fp_success_url'  => 'http://192.168.9.98/tokoku/frontend/web/site/keranjang',
         // 'fp_fail_url'     => 'http://192.168.9.98/tokoku/frontend/web/',
         // 'fp_status_url'   => 'http://192.168.9.98/tokoku/frontend/web/',
-        'fp_success_url'  => 'http://192.168.100.4/tokoku/frontend/web/site/success?transaksi='.json_encode($query, JSON_FORCE_OBJECT),
-        'fp_fail_url'     => 'http://192.168.100.4/tokoku/frontend/web/',
-        'fp_status_url'   => 'http://192.168.100.4/tokoku/frontend/web/',
+        // 'fp_success_url'  => 'http://192.168.100.4/tokoku/frontend/web/site/success?transaksi='.json_encode($query, JSON_FORCE_OBJECT),
+        // 'fp_fail_url'     => 'http://192.168.100.4/tokoku/frontend/web/',
+        // 'fp_status_url'   => 'http://192.168.100.4/tokoku/frontend/web/',
         'fp_amnt'         => $total,
       ];
       $result['rincian'] = [
@@ -207,7 +207,9 @@ class ApiController extends Controller
         'onkir_f'       => "Rp ".number_format($ongkir,0,',','.'),
         'total_f'       => "Rp ".number_format($total,0,',','.')
       ];
-      $result['url'] = 'http://192.168.100.4/tokoku/frontend/web/site/success?transaksi='.json_encode(['asd']);
+      $result['fp_success_url'] = 'http://192.168.9.98/tokoku/frontend/web/site/success?track_id='.$keranjang_id.'&order_id='.$result['fasapay_data']['order_id'].'&fp_merchant_ref='.$result['fasapay_data']['fp_merchant_ref'];
+      $result['fp_fail_url']    = 'http://192.168.9.98/tokoku/frontend/web/';
+      $result['fp_status_url']  = 'http://192.168.9.98/tokoku/frontend/web/';
       $result['data'] = $query;
       return $result;
     }

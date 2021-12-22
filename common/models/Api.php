@@ -234,6 +234,37 @@ class Api extends Model
     return $update->save();
   }
 
+  public function is_selected_keranjang($kategori)
+  {
+    $update = KategoriForm::findOne([
+      'kategori_id' => $kategori['kategori_id'],
+    ]);
+    $nama_kategori = strtolower($kategori['nama_kategori']);
+    $nama_kategori = ucwords($nama_kategori);
+    $update->nama_kategori = $nama_kategori;
+    return $update->save();
+  }
+
+  public function simpan_transaksi($model, $keranjang)
+  {
+    $created_by         = Yii::$app->user->identity->id;
+    $model->produk_id   = (string)$keranjang['produk_id'];
+    $model->harga       = $keranjang['harga'];
+    $model->qty         = 1;
+    $model->created_by  = $created_by;
+    return $model->save();
+  }
+
+  public function simpan_tagihan($model, $keranjang)
+  {
+    $created_by         = Yii::$app->user->identity->id;
+    $model->produk_id   = (string)$keranjang['produk_id'];
+    $model->harga       = $keranjang['harga'];
+    $model->qty         = 1;
+    $model->created_by  = $created_by;
+    return $model->save();
+  }
+
   public function delete_keranjang($keranjang_id)
   {
     $update = Keranjang::findOne([
