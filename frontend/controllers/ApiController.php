@@ -74,6 +74,28 @@ class ApiController extends Controller
     }
 
     /**
+     * Login action.
+     *
+     * @return string|Response
+     */
+    public function actionListProduk()
+    {
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+			$searchValue     = '';
+      $where      = ['=', 'produk.is_delete' , '1'];
+      $modelApi = new Api();
+			$query		= $modelApi->get_join_tabel($where, false, false, false, 'produk.updated_at', 'produk', 'kategori', 'kategori.kategori_id = produk.kategori_id');
+			foreach ($query as $key => $value) {
+				$query[$key]['no']	      = $key+1;
+				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
+        $query[$key]['keranjang'] = $modelApi->get_tabel_by('keranjang', ['produk_id' => $value['produk_id'], 'is_selected' => '0', 'created_by' => Yii::$app->user->identity->id]);
+			}
+
+      $result['data'] = $query;
+      return $result;
+    }
+
+    /**
      * Select Keranjang action.
      *
      * @return string|Response

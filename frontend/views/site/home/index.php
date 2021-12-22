@@ -204,7 +204,7 @@ $this->registerJs("
                             Beli barang yang kamu inginkan, nikmati diskon akhir tahun untuk kalian semua
                           </p>
                           <div class="btn-box">
-                             <a href="" class="btn1">
+                             <a href="site/produk" class="btn1">
                                Beli Sekarang
                              </a>
                           </div>

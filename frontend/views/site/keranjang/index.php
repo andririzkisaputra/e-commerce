@@ -42,6 +42,11 @@ $this->registerJs("
           array = array.join('');
           html  = array.toString();
           $('#list-keranjang').html(html);
+          if (res.data.length > 0) {
+            $('.empty-data').hide();
+          } else {
+            $('.empty-data').show();
+          }
           return true;
         },
         error: function(e){
@@ -108,6 +113,10 @@ $this->registerJs("
     </div>
   </div> -->
   <div id="list-keranjang">
-
+  </div>
+  <div class="empty-data heading_center" style="text-align: center">
+    <h2>
+      Keranjang <span>Kosong</span>
+    </h2>
   </div>
 </div>

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "transaksi".
@@ -24,6 +25,16 @@ class Transaksi extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'transaksi';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+      return [
+          TimestampBehavior::className(),
+      ];
     }
 
     /**

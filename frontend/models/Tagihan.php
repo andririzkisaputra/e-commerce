@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "tagihan".
@@ -10,7 +11,7 @@ use Yii;
  * @property int $tagihan_id
  * @property int|null $transaksi_id
  * @property string|null $kode_tagihan
- * @property string|null $status_tagihan 1. menunggu pembayaran  2. menunggu konfirmasi pembayaran  3. dibayar  4. batal  5. gagal	
+ * @property string|null $status_tagihan 1. menunggu pembayaran 2. menunggu konfirmasi pembayaran  3. dibayar4. batal  . gagal	
  * @property string|null $total_bayar
  * @property int|null $created_by
  * @property int|null $created_at
@@ -24,6 +25,16 @@ class Tagihan extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'tagihan';
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+      return [
+          TimestampBehavior::className(),
+      ];
     }
 
     /**
