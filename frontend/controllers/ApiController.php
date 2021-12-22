@@ -172,6 +172,32 @@ class ApiController extends Controller
       $result['data'] = $query;
       return $result;
     }
+
+    /**
+     * Pesanan action.
+     *
+     * @return string|Response
+     */
+    public function actionGetPesanan()
+    {
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $modelApi = new Api();
+      $query = $modelApi->get_join_tabel(
+        [
+          'keranjang.created_by' => Yii::$app->user->identity->id,
+          'is_selected'          => '0'
+        ],
+        false, false, false, 'keranjang.created_at', 'keranjang', 'produk', 'keranjang.produk_id = produk.produk_id',
+        'keranjang.*, produk.nama_produk, produk.gambar'
+      );
+
+      foreach ($query as $key => $value) {
+				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
+			}
+      $result['data'] = $query;
+      return $result;
+    }
+
     /**
      * Keranjang action.
      *

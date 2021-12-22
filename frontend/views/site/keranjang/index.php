@@ -9,8 +9,7 @@ $this->registerJs("
     _getData();
   });
 
-  function _getData()
-  {
+  function _getData() {
     $.ajax({
         type     : 'POST',
         url      : '".Url::base(true)."/api/get-keranjang',

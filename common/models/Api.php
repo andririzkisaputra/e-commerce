@@ -42,8 +42,19 @@ class Api extends Model
     return $modelUser->save();
   }
 
-  public function get_join_tabel($where = false, $where_like = false, $limit = false, $start = false, $order_by, $tabel, $tabelJoin, $selectJoin, $select = '*', $tabelJoinDua = false ,$selectJoinDua = false)
-  {
+  public function get_join_tabel(
+    $where = false,
+    $where_like = false,
+    $limit = false,
+    $start = false,
+    $order_by,
+    $tabel,
+    $tabelJoin,
+    $selectJoin,
+    $select = '*',
+    $tabelJoinDua = false,
+    $selectJoinDua = false
+  ) {
     $semua = new Query;
     $semua->select($select);
     $semua->from($tabel)->leftJoin($tabelJoin, $selectJoin);

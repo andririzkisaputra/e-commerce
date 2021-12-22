@@ -1,6 +1,6 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\helpers\Url;
 
 $this->title = 'Pesanan';
 
@@ -11,6 +11,32 @@ $this->registerJs("
   });
 
   function _getData() {
+    $.ajax({
+        type     : 'POST',
+        url      : '".Url::base(true)."/api/get-pesanan',
+        dataType : 'JSON',
+        success: function(res){
+          let html  = '';
+          let array = [];
+          res.data.map((item, index) => {
+          let gambar_f = '/tokoku/uploads/backend/produk/'+item.gambar;
+            array.push();
+          })
+          array = array.join('');
+          html  = array.toString();
+          $('#list-keranjang').html(html);
+          if (res.data.length > 0) {
+            $('.empty-data').hide();
+          } else {
+            $('.empty-data').show();
+          }
+          return true;
+        },
+        error: function(e){
+          alert('ERROR at PHP side!!');
+          return false;
+        }
+    });
   }
 
 ");
