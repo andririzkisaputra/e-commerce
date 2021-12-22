@@ -99,7 +99,7 @@ class ApiController extends Controller
       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
       $modelApi = new Api();
       $model    = new Keranjang();
-      $data  = $modelApi->update_sistem_pembayaran($_POST['keranjang_id'], $_POST['pembayaran']);
+      $data     = $modelApi->update_sistem_pembayaran($_POST['keranjang_id'], $_POST['pembayaran']);
       $result['data'] = $data;
       return $result;
     }
@@ -156,6 +156,7 @@ class ApiController extends Controller
     {
       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
       $harga = 0;
+      $qty   = 0;
       $modelApi = new Api();
       $query = $modelApi->get_join_tabel(
         [
@@ -171,10 +172,27 @@ class ApiController extends Controller
 				$query[$key]['harga_f']	  = "Rp ".number_format($value['harga'],0,',','.');
         $harga                    = $value['harga'];
         $harga                    = $value['qty']*$harga;
+        $qty                      = $value['qty']+$qty;
         $admin                    = $value['admin'];
+        $keranjang_id             = $value['keranjang_id'];
 			}
       $ongkir = 10000;
       $total  = $harga+$admin+$ongkir;
+      $result['fasapay_data'] = [
+        'fp_acc'          => 'FPX4593',
+        'fp_item'         => $qty.' produk',
+        'fp_comments'     => 'Pembelian '.$qty.' produk',
+        'track_id'        => $keranjang_id,
+        'order_id'        => 'TKU'.rand(10000, 99999),
+        'fp_merchant_ref' => 'TKO'.rand(10000, 99999),
+        // 'fp_success_url'  => 'http://192.168.9.98/tokoku/frontend/web/site/keranjang',
+        // 'fp_fail_url'     => 'http://192.168.9.98/tokoku/frontend/web/',
+        // 'fp_status_url'   => 'http://192.168.9.98/tokoku/frontend/web/',
+        'fp_success_url'  => 'http://192.168.100.4/tokoku/frontend/web/site/success?transaksi='.json_encode($query, JSON_FORCE_OBJECT),
+        'fp_fail_url'     => 'http://192.168.100.4/tokoku/frontend/web/',
+        'fp_status_url'   => 'http://192.168.100.4/tokoku/frontend/web/',
+        'fp_amnt'         => $total,
+      ];
       $result['rincian'] = [
         'harga'         => $harga,
         'biaya_admin'   => $admin,
@@ -189,6 +207,7 @@ class ApiController extends Controller
         'onkir_f'       => "Rp ".number_format($ongkir,0,',','.'),
         'total_f'       => "Rp ".number_format($total,0,',','.')
       ];
+      $result['url'] = 'http://192.168.100.4/tokoku/frontend/web/site/success?transaksi='.json_encode(['asd']);
       $result['data'] = $query;
       return $result;
     }
@@ -206,6 +225,22 @@ class ApiController extends Controller
 
       $result['data'] = $query;
       return $result;
+    }
+
+    /**
+     * Keranjang action.
+     *
+     * @return string|Response
+     */
+    public function actionSuccess()
+    {
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      print_r($_GET['transaksi']);
+      // $modelApi = new Api();
+      // $query = $modelApi->delete_keranjang($_POST['keranjang_id']);
+      //
+      // $result['data'] = $query;
+      // return $result;
     }
 
     /**

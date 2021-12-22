@@ -77,7 +77,6 @@ $this->registerJs("
 
   $(document).on('click', '#beli', function() {
     var keranjang_id = $(this).attr('data');
-    console.log(keranjang_id);
     location.href = ".'"'.Url::base(true).'/site/transaksi?nomor="+keranjang_id'.";
     // if (keranjang_id) {
     //   $.ajax({

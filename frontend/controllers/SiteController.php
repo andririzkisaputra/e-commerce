@@ -130,6 +130,20 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionProduk()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->render('produk/index');
+        } else {
+          $this->redirect('@web/site/login');
+        }
+    }
+
+    /**
      * Logs in a user.
      *
      * @return mixed
@@ -334,5 +348,23 @@ class SiteController extends Controller
        return $this->renderAjax('transaksi/pembayaran', [
          'id' => $_GET['nomor']
        ]);
+     }
+
+
+     /**
+      * Keranjang action.
+      *
+      * @return string|Response
+      */
+     public function actionSuccess()
+     {
+       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       // $data = json_decode($_GET['transaksi']);
+       print_r(json_decode($_GET['transaksi']));
+       // $modelApi = new Api();
+       // $query = $modelApi->delete_keranjang($_POST['keranjang_id']);
+       //
+       // $result['data'] = $query;
+       // return $result;
      }
 }
