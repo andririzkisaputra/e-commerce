@@ -42,8 +42,8 @@ $this->registerJs("
                   +'<div class=".'"option_container"'.">'
                      +'<div class=".'"options"'.">'
                         +html
-                        +'<a href=".'""'." class=".'"option2"'.">'
-                        +'Beli'
+                        +'<a href=".'"javascript:void(0)"'." class=".'"option2 beli"'." data='+item.produk_id+'>'
+                         +'Beli'
                         +'</a>'
                      +'</div>'
                   +'</div>'
@@ -72,6 +72,31 @@ $this->registerJs("
         }
     });
   }
+
+  $(document).on('click', '.beli', function() {
+    var produk_id = $(this).attr('data');
+    if (produk_id) {
+      $.ajax({
+          type     : 'POST',
+          url      : '".Url::base(true)."/api/select-keranjang',
+          dataType : 'JSON',
+          data     : {
+            produk_id : produk_id
+          },
+          success: function(res){
+            _getData();
+						location.href = ".'"site/transaksi?nomor="'."+res.data;
+            return true;
+          },
+          error: function(){
+            alert('ERROR at PHP side!!');
+            return false;
+          }
+      });
+    } else {
+      return false;
+    }
+  });
 
   $(document).on('click', '.keranjang', function() {
     var produk_id = $(this).attr('data');

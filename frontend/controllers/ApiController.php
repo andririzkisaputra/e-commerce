@@ -81,11 +81,14 @@ class ApiController extends Controller
     public function actionSelectKeranjang()
     {
       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-      $modelApi = new Api();
-      $model    = new Keranjang();
-      $query = $modelApi->get_tabel_by('produk', ['produk_id' => $_POST['produk_id']]);
-      $data  = $modelApi->simpan_keranjang($model, $query);
-      $result['data'] = $data;
+      $modelApi  = new Api();
+      $model     = new Keranjang();
+      $keranjang = $modelApi->get_tabel_by('keranjang', ['produk_id' => $_POST['produk_id'], 'is_selected' => '0']);
+      if (!$keranjang) {
+        $query = $modelApi->get_tabel_by('produk', ['produk_id' => $_POST['produk_id']]);
+        $data  = $modelApi->simpan_keranjang($model, $query);
+      }
+      $result['data'] = ($keranjang) ? $keranjang['keranjang_id'] : $data;
       return $result;
     }
 

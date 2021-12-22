@@ -153,7 +153,8 @@ class Api extends Model
     $model->harga       = $keranjang['harga'];
     $model->qty         = 1;
     $model->created_by  = $created_by;
-    return $model->save();
+    $model->save();
+    return $model->keranjang_id;
   }
 
   public function update_keranjang($keranjang, $produk, $is_keranjang)
