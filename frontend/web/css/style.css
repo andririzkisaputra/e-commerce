@@ -1147,6 +1147,14 @@ form input[type="submit"]:focus {
     width: 100%;
 }
 
+.container-pesanan {
+    padding: 25px 0px 25px 35px;
+    background-color: #f8f8f8;
+    margin: 1px 0px 0px 0px;
+    border-radius: 5px;
+    width: 100%;
+}
+
 .list-keranjang {
     padding: 0px 0px 0px 25px;
 }
@@ -1158,7 +1166,16 @@ form input[type="submit"]:focus {
 .right-keranjang {
     margin-inline-end: inherit;
     margin-top: auto;
-    padding: 0px 25px 0px 0px;
+    padding: 0px 35px 0px 0px;
+}
+
+.justify-content {
+  justify-content: space-around;
+  column-count: 2;
+}
+
+.text-align-end {
+  text-align: end
 }
 
 http://kute-themes.com/html/boutique/html/index.html

@@ -24,7 +24,7 @@ $this->registerJs("
               +'<div class=".'"row row-keranjang"'.">'
                 +'<img width=".'"100"'." src="."'+gambar_f+'".">'
                 +'<div class=".'"list-keranjang"'.">'
-                  +'<p>'+item.nama_produk+'</p>'
+                  +'<b>'+item.nama_produk+'</b>'
                   +'<p>'+item.harga_f+'</p>'
                   +'<p>'+item.qty+'</p>'
                 +'</div>'
